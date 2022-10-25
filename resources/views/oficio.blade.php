@@ -84,7 +84,7 @@
         <p style="line-height:108%;  "><span style="font-family:Arial; font-weight:bold; -aw-import:ignore">&#xa0;</span></p>
         <p style="text-indent:36pt; line-height:108%;  "><span style="font-family:Arial">Prezado(a) Senhor(a),</span></p>
         <p style="text-indent:36pt; line-height:108%;  "><span style="font-family:Arial; -aw-import:ignore">&#xa0;</span></p>
-        <p style="text-indent:35.4pt; text-align:justify; line-height:108%;  "><span style="font-family:Arial">Venho solicitar, pelo presente, </span> {{$oficio->conteudo}} </p>
+        <p style="text-indent:35.4pt; text-align:justify; line-height:108%;  "><span style="font-family:Arial">Venho solicitar, pelo presente, </span>{{$oficio->conteudo}} </p>
         <p style="text-indent:35.4pt; line-height:108%;  "><span style="font-family:Arial">Sem mais para o momento, renovo votos da mais alta estima e consideração.</span></p>
         <p style="line-height:108%;  "><span style="font-family:Arial; -aw-import:ignore">&#xa0;</span></p>
         <p style="line-height:108%;  "><span style="font-family:Arial">Atenciosamente,</span></p>

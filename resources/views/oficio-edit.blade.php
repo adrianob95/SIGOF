@@ -10,26 +10,28 @@
             </div>
 
             <div class="col-lg-10 wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.25s">
-                <h3 style="text-align: center; color: #fff; margin-bottom: 10px;">OFICIO N° {{$numeracao}}/{{date('Y')}}</h3>
-                <form id="contact" action="{{route('oficio.store')}}" method="post">
-                    @csrf
+                <h3 style="text-align: center; color: #fff; margin-bottom: 10px;">OFICIO N° {{$oficio->numeracao}}/{{$oficio->ano}}</h3>
+                <form id="contact" action="{{route('oficio.update', ['oficio'=> $oficio])}}" method="post">
 
+                    @method('PUT')
+                    @csrf
                     <div class="row">
 
                         <div class="col-lg-7">
 
                             <fieldset>
                                 <label>Destinatario</label>
-                                <input list="destino" name="destinatario" id="destinatario" placeholder="">
+                                <input list="destino" name="destinatario" id="destinatario" placeholder="" value="{{$oficio->destinatario}}">
                                 <datalist id="destino">
-                                    @foreach($oficios as $oficio)
+                                    @foreach($oficios as $ofc)
 
-                                    <option value="{{$oficio->tratamento}}: {{$oficio->destinatario}}, {{$oficio->cargodestino}} - {{$oficio->localdestino}}">
+                                    <option value="{{$ofc->tratamento}}: {{$ofc->destinatario}}, {{$ofc->cargodestino}} - {{$ofc->localdestino}}">
 
                                         @endforeach
                                 </datalist>
 
-
+                               
+                                
 
 
                             </fieldset>
@@ -37,49 +39,48 @@
                         <div class="col-lg-5">
                             <fieldset>
                                 <label>Tratamento do destinatario</label>
-                                <input type="text" name="tratamento" id="tratamento" placeholder="A Sua Excelência o Senhor" autocomplete="on" required>
+                                <input type="text" name="tratamento" id="tratamento" placeholder="A Sua Excelência o Senhor" autocomplete="on" required value="{{$oficio->tratamento}}">
                             </fieldset>
                         </div>
 
                         <div class="col-lg-6">
                             <fieldset>
                                 <label>Cargo do destinatario</label>
-                                <input type="text" name="cargodestino" id="cargodestino" placeholder="Secretario de Educação" autocomplete="on" required>
+                                <input value="{{$oficio->cargodestino}}" type="text" name="cargodestino" id="cargodestino" placeholder="Secretario de Educação" autocomplete="on" required>
                             </fieldset>
                         </div>
                         <div class="col-lg-6">
                             <label>Local do destinatario</label>
                             <fieldset>
-                                <input type="text" name="localdestino" id="localdestino" placeholder="Secretaria de Educação" required="">
+                                <input value="{{$oficio->localdestino}}" type="text" name="localdestino" id="localdestino" placeholder="Secretaria de Educação" required="">
                             </fieldset>
                         </div>
                         <div class="col-lg-3">
                             <label>Data do oficio</label>
                             <fieldset>
-                                <input style="text-align: center; background-color: #7aa;" type="date" name="data" id="data" required="" value="{{date('Y-m-d')}}">
+                                <input style="text-align: center; background-color: #7aa;" type="date" name="data" id="data" required="" value="{{$oficio->data}}"">
                             </fieldset>
                         </div>
 
-                        <div class="col-lg-3">
-                            <label>Numero do Oficio</label>
-                            <fieldset>
-                                <input style="text-align: right; background-color: #7aa;" type="text" name="numeracao" id="numeracao" value="{{$numeracao}}" required="">
-
-                            </fieldset>
+                        <div class=" col-lg-3">
+                                <label>Numero do Oficio</label>
+                                <fieldset>
+                                    <input value="{{$oficio->numeracao}}" style="text-align: right; background-color: #7aa;" type="text" name="numeracao" id="numeracao" required="">
+                                </fieldset>
                         </div>
 
 
                         <div class="col-lg-2">
                             <label>Ano do Oficio</label>
                             <fieldset>
-                                <input type="text" name="ano" id="ano" style="text-align: left; background-color: #7aa;" value="{{date('Y')}}" required="">
-                                <input type="hidden" name="situacao" id="situacao" value="cadastrado" required="">
+                                <input value="{{$oficio->ano}}" type="text" name="ano" id="ano" style="text-align: left; background-color: #7aa;" value="{{date('Y')}}" required="">
+                                <!-- <input type="text" name="situacao" id="situacao" value="cadastrado" required=""> -->
                             </fieldset>
                         </div>
                         <div class="col-lg-4">
                             <fieldset>
                                 <label>Cidade</label>
-                                <input list="Cidade" name="cidade" id="cidade" style="background-color: #7aa;" value="Santo Amaro">
+                                <input list="Cidade" name="cidade" id="cidade" style="background-color: #7aa;" value="{{$oficio->cidade}}">
                                 <datalist id="Cidade">
                                     @foreach($oficios as $oficio)
 
@@ -90,9 +91,16 @@
                             </fieldset>
                         </div>
                         <div class="col-lg-12">
+                            <label>Situação</label>
+                            <fieldset>
+                                <!-- <input value="{{$oficio->ano}}" type="text" name="ano" id="ano" style="text-align: left; background-color: #7aa;" value="{{date('Y')}}" required=""> -->
+                                <input type="text" name="situacao" id="situacao" value="{{$oficio->situacao}}" required="">
+                            </fieldset>
+                        </div>
+                        <div class="col-lg-12">
                             <fieldset>
                                 <label>Assunto do oficio</label>
-                                <input type="text" name="assunto" id="assunto" placeholder="Solicitação de iluminação pública." autocomplete="on" required>
+                                <input type="text" name="assunto" id="assunto" value="{{$oficio->assunto}}" placeholder="Solicitação de iluminação pública." autocomplete="on" required>
                             </fieldset>
                         </div>
                         <div class="col-lg-12">
@@ -100,7 +108,7 @@
 
                             <h6 style="font-size: 12px ;"> <br>Venho solicitar, pelo presente, </h6>
                             <fieldset>
-                                <textarea name="conteudo" type="text" class="form-control" id="conteudo" placeholder="Continue o oficio aqui" required=""></textarea>
+                                <textarea name="conteudo" type="text" class="form-control" id="conteudo" placeholder="Continue o oficio aqui" required="">{{$oficio->conteudo}}</textarea>
                             </fieldset>
                         </div>
 
@@ -111,7 +119,7 @@
                         <div class="col-lg-12">
 
                             <fieldset>
-                                <button type="submit" id="form-submit" class="main-button ">Cadastrar Oficio</button>
+                                <button type="submit" id="form-submit" class="main-button ">Atualizar Oficio</button>
                             </fieldset>
                         </div>
                     </div>

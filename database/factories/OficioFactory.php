@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Oficio;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -19,7 +20,7 @@ class OficioFactory extends Factory
         return [
 
 
-            'numeracao' => rand(11, 99),
+            'numeracao' => 1,
             'ano'  => $this->faker->year(),
             'data' => $this->faker->datetime(),
             'cidade' => $this->faker->city,

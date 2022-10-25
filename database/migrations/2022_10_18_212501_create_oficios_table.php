@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('oficios', function (Blueprint $table) {
             $table->id(); 
-                $table->string('numeracao');
+                $table->integer('numeracao');
                 $table->string('ano');
                 $table->string('data');
                 $table->string('cidade');

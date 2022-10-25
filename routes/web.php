@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes(['register' => true]);
 
 Route::get('/', function () {
     return view('inicio');
@@ -35,7 +36,7 @@ Route::middleware([
  
     Route::get('/novo', function () {
          
-       return view('novo'); 
+       return view('novo', ['oficios' => Oficio::all(), 'numeracao' =>  (Oficio::latest()->first()==null ? 1 : Oficio::latest()->first()->numeracao+1)]);
     })->name('oficio.novo');
 
     Route::resource('oficio', OficioController::class);
@@ -44,6 +45,9 @@ Route::middleware([
 Route::get('/pdf/{oficio}', function (Request $request, Oficio $oficio) {
     $pdf = App::make('dompdf.wrapper');
     // $pdf->loadView('oficio', ['oficio' => $oficio, 'user' => Auth::user(),]);
-    $pdf->loadView('oficio', ['oficio' => $oficio, 'user' => User::find(11)]);
+    $pdf->loadView('oficio', ['oficio' => $oficio, 'user' => User::find(11), ]);
     return $pdf->stream();
 })->name('pdf');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
